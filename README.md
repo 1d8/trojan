@@ -103,6 +103,8 @@ else {
 
 This is a repeat of earlier code, we're simply downloading the malware from the URL stored in malware_URL & saving it to the path stored in maldir. If the download succeeds, we execute it & then exit the dropper.
 
+The "malware" we download here simply overwrites the dropper & deletes it, but we can drop more malicious malware such as installing (spyware)[https://github.com/1d8/spybrowse] on a victim's machine.
+
 ## Cross-Compilation
 `x86_64-w64-mingw32-gcc input.c -o output.exe -lurlmon`
 
