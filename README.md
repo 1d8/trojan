@@ -104,6 +104,6 @@ else {
 This is a repeat of earlier code, we're simply downloading the malware from the URL stored in malware_URL & saving it to the path stored in maldir. If the download succeeds, we execute it & then exit the dropper.
 
 ## Cross-Compilation
-    `x86_64-w64-mingw32-gcc input.c -o output.exe -lurlmon`
+`x86_64-w64-mingw32-gcc input.c -o output.exe -lurlmon`
 
 Before delivering your dropper to your victim, be sure to rename it to the legitimate application's name. For example, if you were to have it masquerade as a Brave Browser installer, name the dropper file BraveBrowserSetUp.exe & change the icon of it to match the original. You can also sign the executable as well with a valid certificate to make the dropper less suspicious.
