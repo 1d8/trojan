@@ -78,6 +78,7 @@ GetEnvironmentVariable("APPDATA", maldir, MAX_PATH);
 
 strcat_s(maldir, strlen(maldir)+strlen(malware_app)+1, malware_app);
 ```
+
 1. Grabbing environment variable of APPDATA & storing it in maldir
 2. Appending the desired file name of the malware that gets dropped to the maldir variable, creating a full path
 
